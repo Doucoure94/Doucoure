@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barre de navigation pliable</title>
+    <link rel="stylesheet" href="site2.css">
+</head>
+<body>
+    <header>
+        <h1>Démarches liées au séjour en France</h1>
+        <p>Trouvez les informations pour prendre rendez-vous, faire votre première demande ou renouvellement.</p>
+        <div class="navbar">
+            <a href="#" class="brand">Site pour simplifier vos démarches de séjour en France</a>
+            <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+                &#9776;
+            </a>
+            <div id="navLinks" class="nav-links">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#home">Les Préfectures</a>
+                        <ul class="dropdown-content">
+                            <li><a href="#prefecture1">Préfecture 1</a></li>
+                            <li><a href="#prefecture2">Préfecture 2</a></li>
+                            <li><a href="#prefecture3">Préfecture 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="index.html">Les Démarches</a>
+                        <ul class="dropdown-content">
+                            <li><a href="#demarche1">Démarche 1</a></li>
+                            <li><a href="#demarche2">Démarche 2</a></li>
+                            <li><a href="#demarche3">Démarche 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#contact">Les Associations</a>
+                        <ul class="dropdown-content">
+                            <li><a href="#association1">Association 1</a></li>
+                            <li><a href="#association2">Association 2</a></li>
+                            <li><a href="#association3">Association 3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="search">
+            <input type="text" id="searchInput" placeholder="Rechercher une préfecture...">
+        </section>
+        <section id="results">
+            <ul id="prefectureList"></ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Aide aux personnes en situation irrégulière</p>
+    </footer>
+    <script src="site2.js"></script>
+</body>
+</html>
