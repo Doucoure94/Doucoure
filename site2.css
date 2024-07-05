@@ -199,3 +199,39 @@ footer {
 }
 
 
+/* Styles pour rendre le diaporama responsive */
+.slider {
+    width: 100%;
+    max-width: 100%; /* Assure que le diaporama ne dépasse pas la largeur maximale de l'écran */
+}
+
+.slider img {
+    width: 100%; /* Les images du diaporama occupent la largeur totale de leur conteneur */
+    height: auto; /* Hauteur automatique pour maintenir le ratio d'aspect */
+}
+
+/* Styles pour rendre la navigation et le contenu principal responsive */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.nav-links {
+    display: none; /* Masquer les liens de navigation par défaut */
+}
+
+@media screen and (max-width: 768px) {
+    /* Styles à appliquer lorsque la largeur de l'écran est inférieure ou égale à 768px */
+    .navbar {
+        flex-direction: column; /* Aligner verticalement les éléments de la navbar */
+    }
+
+    .nav-links {
+        display: block; /* Afficher les liens de navigation */
+        margin-top: 10px; /* Ajouter un espace au-dessus des liens */
+    }
+}
