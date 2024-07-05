@@ -164,3 +164,38 @@ footer {
         display: block;
     }
 }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-media {
+    display: flex;
+    align-items: center;
+}
+
+.social-media a {
+    margin-left: 10px;
+}
+
+.social-icon {
+    width: px;
+    height: 24px;
+}
+#slideshow {
+    max-width: 800px; /* Ajustez selon vos besoins */
+    margin: 10px auto;
+    text-align: center;
+}
+
+.slider {
+    width: 100%;
+}
+
+.slider img {
+    width: 100%;
+    height: auto;
+}
+
+

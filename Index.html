@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barre de navigation pliable</title>
+    <link rel="stylesheet" href="site2.css">
+    <head>
+        <!-- Autres balises meta et title -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css"/>
+        <link rel="stylesheet" href="site2.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+    </head>
+    
+
+</head>
+<body>
+    <header>
+        <h1>Démarches liées au séjour en France</h1>
+        <p>Trouvez les informations essentielles pour planifier votre rendez-vous, effectuer 
+            votre première demande ou renouveler vos démarches administratives en toute simplicité.</p>
+        <div class="navbar">
+            <a href="#" class="brand">Site pour simplifier vos démarches de séjour en France</a>
+            <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+                &#9776;
+            </a>
+            <div id="navLinks" class="nav-links">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#home">Les Préfectures</a>
+                        <ul class="dropdown-content">
+                            <li><a href="#prefecture1">Préfecture 1</a></li>
+                            <li><a href="#prefecture2">Préfecture 2</a></li>
+                            <li><a href="#prefecture3">Préfecture 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="Sous.html">Les Démarches</a>
+                        <ul class="dropdown-content">
+                            <li><a href="#demarche1">Démarche 1</a></li>
+                            <li><a href="#demarche2">Démarche 2</a></li>
+                            <li><a href="#demarche3">Démarche 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="Assoc.html">Les Associations</a>
+                        <ul class="dropdown-content">
+                            <li><a href="#association1">Association 1</a></li>
+                            <li><a href="#association2">Association 2</a></li>
+                            <li><a href="#association3">Association 3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="social-media">
+                <span class="social-prompt">Suivez-moi sur TikTok</span>
+                <a href="https://www.tiktok.com/@coumba_dembo96?_t=8nlk2ELPMMi&_r=1" target="_blank">
+                    <img src="t.png" alt="Twitter" class="social-icon">
+                </a>
+            <span class="social-prompt">Suivez-moi sur Youtube</span>
+                <a href="https://youtube.com/@wakarydoucoure?si=jxhVQziSQI2Eif2Z" target="_blank">
+                    <img src="y.jpg" alt="Twitter" class="social-icon">
+                </a>
+                
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="search">
+            <input type="text" id="searchInput" placeholder="Rechercher une préfecture...">
+        </section>
+        <section id="results">
+            <ul id="prefectureList"></ul>
+        </section>
+        <main>
+            <!-- Vos autres sections existantes (search, results, etc.) -->
+            
+            <section id="slideshow">
+                <h2>Diaporama sur l'immigration en France</h2>
+                <div class="slider">
+                    <div><img src="im.png" alt="Image 1"></div>
+                    <div><img src="im2.png" alt="Image 2"></div>
+                    <div><img src="im3.png" alt="Image 3"></div>
+                    <div><img src="im4.png" alt="Image 3"></div>
+                    <div><img src="im5.png" alt="Image 3"></div>
+                    <!-- Ajoutez plus d'images selon vos besoins -->
+                </div>
+            </section>
+        </main>
+        
+        
+    </main>
+    <footer>
+        <p>&copy; 2024 Aide aux personnes en situation irrégulière</p>
+    </footer>
+    <script src="site2.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.slider').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                arrows: true,
+                dots: true,
+                infinite: true,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>

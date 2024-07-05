@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+main {
+    padding: 1rem;
+}
+
+#associations-section {
+    margin: 1rem 0;
+}
+
+#associations-list {
+    list-style: none;
+    padding: 0;
+}
+
+.association-item {
+    background-color: #fff;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.association-item h3 {
+    margin: 0;
+}
+
+.association-details {
+    display: none;
+    margin-top: 0.5rem;
+}
+
+.association-details p {
+    margin: 0.2rem 0;
+}

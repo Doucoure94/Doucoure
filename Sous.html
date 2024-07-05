@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Préfectures et Démarches</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .prefecture {
+            margin-bottom: 30px;
+        }
+        .prefecture h2 {
+            background-color: #006699;
+            color: white;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+        }
+        .demarches, .anef-demarches {
+            border: 1px solid #006699;
+            border-top: none;
+            padding: 10px;
+            border-radius: 0 0 5px 5px;
+            display: none;
+        }
+        .demarche, .anef-demarche {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #e7f3ff;
+            border: 1px solid #cce0ff;
+            border-radius: 5px;
+        }
+        .demarche a, .anef-demarche a {
+            color: #006699;
+            text-decoration: none;
+        }
+        .anef-header {
+            background-color: #004466;
+            color: white;
+            padding: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <!-- Préfectures et démarches seront insérées ici par JavaScript -->
+    </div>
+
+    <script>
+        // Les données des préfectures et leurs démarches
+        const prefectures = [
+            { name: "Paris", demarches: [
+                { name: "Renouvellement Carte séjour salarié ou temporaire", link: "https://www.ppoletrangers.interieur.gouv.fr/?motif=rensej" },
+                { name: "Vous êtes entré(e)s en France avant 13 ans, vous y résidez depuis lors et vous venez d’avoir 18 ans", link: "https://www.demarches-simplifiees.fr/commencer/pp-1ere-demande-jeune-majeur" },
+                { name: "Si vous avez été placé à l’ASE avant vos 16 ans", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+                { name: "Renouvellement récepissé", link: "https://contacts-demarches.interieur.gouv.fr/etrangers/renouvellement-recepisse/" },
+                { name: "Première demande admission exceptionelle au séjour par travail", link: "https://www.demarches-simplifiees.fr/commencer/prefecture-de-police-de-paris-demande-de-rdv-d-adm" },
+                { name: "Metiers en tension (choisir dans la liste Metiens en tension)", link: "https://www.demarches-simplifiees.fr/commencer/prefecture-de-police-de-paris-demande-de-rdv-d-adm" },
+                { name: "RDV pour Retrait d'un titre de séjour", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4443/" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]},
+            { name: "Raincy", demarches: [
+                { name: "Demande de renouvellement de titre de séjour", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4407/" },
+                { name: "Demande de changement de statut", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4409/" },
+                { name: "Demande de Renouvellement de récépissé/APS exécution d'un jugement", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4382/" },
+                { name: "Demande d'admission exceptionnelle au séjour", link: "https://www.demarches-simplifiees.fr/commencer/aes-leraincy" },
+                { name: "Remise de titre", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4408/" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]},
+            { name: "Bobigny", demarches: [
+                { name: "Demande de renouvellement titre de séjour - Pôle vie privée et familiale (y compris carte de résident et jeune confié à l'ASE avant 16 ans)", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4082/" },
+                { name: "Demande de renouvellement titre de séjour - Pôle professionnel (salarié, changement de statut - Hors changement de statut étudiant à salarié)", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/3887/" },
+                { name: "Demande de renouvellement de récépissé (hors Asile)", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4083/" },
+                { name: "Première Demande d'admission exceptionnelle au séjour", link: "https://www.demarches-simplifiees.fr/commencer/aes-bobigny" },
+                { name: "Metiers en tension", link: "https://www.demarches-simplifiees.fr/commencer/aes-bobigny" },
+                { name: "Remise de titre - section délivrance Bobigny", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/3889/" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]},
+            { name: "Sous-Préfecture à SAINT-DENIS", demarches: [
+                { name: "Demande de renouvellement titre de séjour - Pôle vie privée et familiale (y compris carte de résident et jeune confié à l'ASE avant 16 ans)", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4564/" },
+                { name: "Demande de renouvellement titre de séjour - Pôle professionnel (salarié, changement de statut - Hors changement de statut étudiant à salarié)", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4566/" },
+                { name: "Demande de renouvellement de récépissé (hors Asile)", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4276/" },
+                { name: "premier titre de séjour vie professionnelle (travailleur temporaire avec visa D « carte de séjour à solliciter », changement de statut vers « salarié » avec un titre RLD-UE d’un autre pays de l’union européenne, scientifique algérien avec visa d’installation « carte de séjour à solliciter », profession libérale avec visa D « carte de séjour à solliciter)", link: "https://www.demarches-simplifiees.fr/commencer/demande-de-premier-titre-de-sejour-vie-professionn" },
+                { name: "premier titre de séjour vie privée et familiale (pacsé avec un français, jeune majeur entré en France avant l’âge de 13 ans sauf algérien et tunisien, jeune majeur algérien ou tunisien entré en France avant l’âge de 10 ans, jeune majeur confié à l’ASE avant l’âge de 16 ans, bénéficiaire d’une ordonnance de protection, conjoint de scientifique algérien avec visa d’installation « carte de séjour à solliciter »)", link: "https://www.demarches-simplifiees.fr/commencer/demande-de-premier-titre-de-sejour-vie-privee-et-f" },
+                { name: "Remise de titre - section délivrance Saint-Denis", link: "https://www.rdv-prefecture.interieur.gouv.fr/rdvpref/reservation/demarche/4565/" },
+                { name: "une autorisation  provisoire de séjour post master (APS post master)/titre de séjour recherche d’emploi ou création d’entreprise", link: "https://www.demarches-simplifiees.fr/commencer/demande-aps-post-master-recherche-emploi" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]},
+            { name: "Versailles", demarches: [
+                { name: "Renouvellement Carte séjour salarié ou temporaire", link: "#" },
+                { name: "Renouvellement Carte séjour vie privée et familiale uniquement sur ANEF", link: "https://www.prefecturedeparis.paris.renouvellement-cartes-sejour" },
+                { name: "Renouvellement récepissé", link: "#" },
+                { name: "Première demande AES par travail", link: "#" },
+                { name: "Première demande AES par vie privée et familiale", link: "#" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]},
+        
+            { name: "Sarcelles", demarches: [
+                { name: "Renouvellement Carte séjour salarié ou temporaire", link: "#" },
+                { name: "Renouvellement Carte séjour vie privée et familiale uniquement sur ANEF", link: "https://www.prefecturedeparis.paris.renouvellement-cartes-sejour" },
+                { name: "Renouvellement récepissé", link: "#" },
+                { name: "Première demande AES par travail", link: "#" },
+                { name: "Première demande AES par vie privée et familiale", link: "#" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]},
+            { name: "Melun", demarches: [
+                { name: "Renouvellement Carte séjour salarié ou temporaire", link: "#" },
+                { name: "Renouvellement Carte séjour vie privée et familiale uniquement sur ANEF", link: "https://www.prefecturedeparis.paris.renouvellement-cartes-sejour" },
+                { name: "Renouvellement récepissé", link: "#" },
+                { name: "Première demande AES par travail", link: "#" },
+                { name: "Première demande AES par vie privée et familiale", link: "#" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]},
+            { name: "Créteil", demarches: [
+                { name: "Renouvellement Carte séjour salarié ou temporaire", link: "#" },
+                { name: "Renouvellement Carte séjour vie privée et familiale uniquement sur ANEF", link: "https://www.prefecturedeparis.paris.renouvellement-cartes-sejour" },
+                { name: "Renouvellement récepissé", link: "#" },
+                { name: "Première demande AES par travail", link: "#" },
+                { name: "Première demande AES par vie privée et familiale", link: "#" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]},
+            { name: "Nanterre", demarches: [
+                { name: "Renouvellement Carte séjour salarié ou temporaire", link: "#" },
+                { name: "Renouvellement Carte séjour vie privée et familiale uniquement sur ANEF", link: "https://www.prefecturedeparis.paris.renouvellement-cartes-sejour" },
+                { name: "Renouvellement récepissé", link: "#" },
+                { name: "Première demande AES par travail", link: "#" },
+                { name: "Première demande AES par vie privée et familiale", link: "#" },
+                { name: "ANEF", sousDemarches: [
+    { name: "Validation des visas long séjour valant titre de séjour (VLS-TS)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"étudiant\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"membre de famille de passeport talent\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Renouvellement de titre de séjour portant la mention \"visiteur\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour pour raison médicale (première demande et renouvellement)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \"bénéficiaire de la protection internationale\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Duplicata de titre de séjour", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Changement de situation (changement d’adresse, changement d’état civil et de situation familiale)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Document de circulation pour étrangers mineurs (DCEM)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de voyage pour étranger (TVE)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \" citoyens de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un \" citoyen de l’Union européenne\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille d’un ressortissant de nationalité française (conjoint d’un français, parent d’un enfant français, ascendant ou descendant à charge d’un français)", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Membre de famille bénéficiant du regroupement familial ou nés en France", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Bénéficiaires d’une ordonnance de protection émise par le tribunal \"vulnérabilité\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" },
+    { name: "Titre de séjour \"travailleur saisonnier-immigration professionnelle\"", link: "https://administration-etrangers-en-france.interieur.gouv.fr/particuliers/#/" }
+]}
+
+            ]}
+        ];
+
+        // Fonction pour afficher les préfectures et leurs démarches
+        function afficherPrefectures() {
+            const container = document.getElementById('container');
+            prefectures.forEach(prefecture => {
+                // Créer les éléments pour chaque préfecture
+                const prefectureDiv = document.createElement('div');
+                prefectureDiv.className = 'prefecture';
+                const prefectureHeader = document.createElement('h2');
+                prefectureHeader.innerText = prefecture.name;
+                prefectureDiv.appendChild(prefectureHeader);
+                const demarchesDiv = document.createElement('div');
+                demarchesDiv.className = 'demarches';
+
+                // Créer les éléments pour chaque démarche
+                prefecture.demarches.forEach(demarche => {
+                    if (demarche.sousDemarches) {
+                        const anefHeader = document.createElement('div');
+                        anefHeader.className = 'anef-header';
+                        anefHeader.innerText = 'ANEF';
+                        demarchesDiv.appendChild(anefHeader);
+
+                        const anefDemarchesDiv = document.createElement('div');
+                        anefDemarchesDiv.className = 'anef-demarches';
+                        demarche.sousDemarches.forEach(sousDemarche => {
+                            const anefDemarcheDiv = document.createElement('div');
+                            anefDemarcheDiv.className = 'anef-demarche';
+                            const anefDemarcheLink = document.createElement('a');
+                            anefDemarcheLink.href = sousDemarche.link;
+                            anefDemarcheLink.target = '_blank';
+                            anefDemarcheLink.innerText = sousDemarche.name;
+                            anefDemarcheDiv.appendChild(anefDemarcheLink);
+                            anefDemarchesDiv.appendChild(anefDemarcheDiv);
+                        });
+                        demarchesDiv.appendChild(anefDemarchesDiv);
+                    } else {
+                        const demarcheDiv = document.createElement('div');
+                        demarcheDiv.className = 'demarche';
+                        const demarcheLink = document.createElement('a');
+                        demarcheLink.href = demarche.link;
+                        demarcheLink.target = '_blank';
+                        demarcheLink.innerText = demarche.name;
+                        demarcheDiv.appendChild(demarcheLink);
+                        demarchesDiv.appendChild(demarcheDiv);
+                    }
+                });
+
+                // Ajouter les éléments au conteneur principal
+                prefectureDiv.appendChild(demarchesDiv);
+                container.appendChild(prefectureDiv);
+
+                // Ajouter les gestionnaires d'événements pour plier et déplier les démarches
+                prefectureHeader.addEventListener('click', () => {
+                    if (demarchesDiv.style.display === 'none' || demarchesDiv.style.display === '') {
+                        demarchesDiv.style.display = 'block';
+                    } else {
+                        demarchesDiv.style.display = 'none';
+                    }
+                });
+            });
+
+            // Ajouter les gestionnaires d'événements pour plier et déplier les sous-dossiers ANEF
+            document.querySelectorAll('.anef-header').forEach(anefHeader => {
+                anefHeader.addEventListener('click', () => {
+                    const anefDemarches = anefHeader.nextElementSibling;
+                    if (anefDemarches.style.display === 'none' || anefDemarches.style.display === '') {
+                        anefDemarches.style.display = 'block';
+                    } else {
+                        anefDemarches.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Appeler la fonction pour afficher les préfectures
+        afficherPrefectures();
+    </script>
+</body>
+</html>
